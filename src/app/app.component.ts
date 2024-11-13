@@ -4,7 +4,6 @@ import { Product } from './models/product.model';
 import { CartItem } from './models/cart-item.model';
 import { ProductInfoComponent } from './product-info/product-info.component';
 import { CartComponent } from './cart/cart.component';
-import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { DetailsPageComponent } from './details-page/details-page.component';
 import { ShippingInfoComponent } from './shipping-info/shipping-info.component';
 import { ProductImagesComponent } from './product-images/product-images.component';
@@ -16,7 +15,6 @@ import { ProductImagesComponent } from './product-images/product-images.componen
     RouterOutlet,
     ProductInfoComponent,
     CartComponent,
-    BreadcrumbComponent,
     DetailsPageComponent,
     ShippingInfoComponent,
     ProductImagesComponent
@@ -47,10 +45,10 @@ export class AppComponent {
 
   // Getter to calculate cart item count
   get cartItemCount(): number {
-    return this.cart.length;
+    return this.cart.reduce((count, item) => count + item.quantity, 0);
   }
 
-  addToCart(event: {quantity: number; size: string}) {
+  addToCart(event: { quantity: number; size: string }) {
     const item: CartItem = {
       id: 1,
       productName: this.product.name,
@@ -61,5 +59,27 @@ export class AppComponent {
     
     this.cart.push(item);
     alert('Product added to cart!');
+  }
+
+  // Method to handle item removal
+  removeCartItem(index: number) {
+    this.cart.splice(index, 1);
+  }
+
+  // Method to handle quantity changes
+  changeItemQuantity({ index, delta }: { index: number; delta: number }) {
+    const item = this.cart[index];
+    if (item) {
+      item.quantity += delta;
+      if (item.quantity <= 0) {
+        this.cart.splice(index, 1); // Remove item if quantity is 0 or less
+      }
+    }
+  }
+
+  // Navigate to product details page on click
+  navigateToProductDetails(productId: number) {
+    // Placeholder for navigation
+    console.log(`Navigating to product with ID: ${productId}`);
   }
 }
