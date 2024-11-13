@@ -21,12 +21,12 @@ export class AppComponent {
     description: 'High-quality CBD oil for natural wellness and balance.',
     price: 32,
     originalPrice: 42,
-    mainImage: 'https://example.com/product.jpg',
+    mainImage: '/main-image.png',
     thumbnails: [
-      'https://example.com/thumb1.jpg',
-      'https://example.com/thumb2.jpg',
-      'https://example.com/thumb3.jpg',
-      'https://example.com/thumb4.jpg'
+      '/thumbnail1.png',
+      '/thumbnail2.png',
+      '/thumbnail3.png',
+      '/thumbnail4.png'
     ],
     reviews: 368,
     sold: 823,
