@@ -1,28 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-breadcrumb',
-  standalone: true,
-  imports: [],
   template: `
-    <nav class="bg-white shadow-sm">
-      <div class="max-w-7xl mx-auto px-4 py-3">
-        <div class="flex justify-between items-center">
-          <div class="flex space-x-4 text-gray-500">
-            <a href="#" class="hover:text-gray-700">Home</a>
-            <span>/</span>
-            <a href="#" class="hover:text-gray-700">Shop</a>
-            <span>/</span>
-            <a href="#" class="hover:text-gray-700">Products</a>
-            <span>/</span>
-            <span class="text-gray-700">Detail</span>
-          </div>
-        </div>
-      </div>
+    <nav class="breadcrumb">
+      <ul class="flex space-x-2">
+        <li *ngFor="let item of breadcrumbs; let last = last">
+          <span *ngIf="!last" class="text-blue-600 cursor-pointer">{{ item }}</span>
+          <span *ngIf="last" class="text-gray-600">{{ item }}</span>
+          <span *ngIf="!last" class="text-gray-600">/</span>
+        </li>
+      </ul>
     </nav>
   `,
-  styleUrl: './breadcrumb.component.css'
+  styles: [
+    `
+      .breadcrumb {
+        font-size: 1rem;
+        padding: 8px 0;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+      }
+    `
+  ]
 })
 export class BreadcrumbComponent {
-
+  @Input() breadcrumbs: string[] = [];
 }

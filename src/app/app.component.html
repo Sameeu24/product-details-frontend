@@ -1,10 +1,20 @@
 <div class="min-h-screen bg-gray-100">
   <!-- Navbar with Cart Icon -->
-  <div class="navbar bg-white shadow p-4 flex justify-between">
-    <app-breadcrumb></app-breadcrumb>
-    
-    <!-- Cart Icon in Navbar -->
-    <app-cart [cartItems]="cart" [cartItemCount]="cartItemCount"></app-cart>
+  <div class="navbar bg-white shadow p-4 flex justify-between items-center">
+    <div class="flex-1">
+      <!-- Optional: add a logo or title here -->
+    </div>
+
+    <!-- Cart Icon in Navbar, aligned to the right -->
+    <div class="flex-shrink-0">
+      <app-cart 
+        [cartItems]="cart" 
+        [cartItemCount]="cartItemCount"
+        (itemRemoved)="removeCartItem($event)"
+        (quantityChanged)="changeItemQuantity($event)"
+        (productClicked)="navigateToProductDetails($event)">
+      </app-cart>
+    </div>
   </div>
 
   <!-- Main Content -->
