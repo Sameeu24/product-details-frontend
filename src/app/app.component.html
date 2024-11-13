@@ -1,6 +1,13 @@
 <div class="min-h-screen bg-gray-100">
-  <app-breadcrumb></app-breadcrumb>
-  
+  <!-- Navbar with Cart Icon -->
+  <div class="navbar bg-white shadow p-4 flex justify-between">
+    <app-breadcrumb></app-breadcrumb>
+    
+    <!-- Cart Icon in Navbar -->
+    <app-cart [cartItems]="cart" [cartItemCount]="cartItemCount"></app-cart>
+  </div>
+
+  <!-- Main Content -->
   <div class="max-w-7xl mx-auto px-4 py-8">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       <app-product-images

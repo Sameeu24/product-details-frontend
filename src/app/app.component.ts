@@ -1,19 +1,28 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { DetailsPageComponent } from './details-page/details-page.component';
-import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
-import { ProductImagesComponent } from './product-images/product-images.component';
-import { ProductInfoComponent } from './product-info/product-info.component';
 import { Product } from './models/product.model';
 import { CartItem } from './models/cart-item.model';
-
+import { ProductInfoComponent } from './product-info/product-info.component';
+import { CartComponent } from './cart/cart.component';
+import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
+import { DetailsPageComponent } from './details-page/details-page.component';
+import { ShippingInfoComponent } from './shipping-info/shipping-info.component';
+import { ProductImagesComponent } from './product-images/product-images.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,DetailsPageComponent,BreadcrumbComponent,ProductImagesComponent,ProductInfoComponent],
+  imports: [
+    RouterOutlet,
+    ProductInfoComponent,
+    CartComponent,
+    BreadcrumbComponent,
+    DetailsPageComponent,
+    ShippingInfoComponent,
+    ProductImagesComponent
+  ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   product: Product = {
@@ -36,11 +45,18 @@ export class AppComponent {
 
   cart: CartItem[] = [];
 
+  // Getter to calculate cart item count
+  get cartItemCount(): number {
+    return this.cart.length;
+  }
+
   addToCart(event: {quantity: number; size: string}) {
     const item: CartItem = {
       id: 1,
+      productName: this.product.name,
       quantity: event.quantity,
-      size: event.size
+      size: event.size,
+      price: this.product.price
     };
     
     this.cart.push(item);
