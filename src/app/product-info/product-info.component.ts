@@ -9,52 +9,42 @@ import { ShippingInfoComponent } from "../shipping-info/shipping-info.component"
   standalone: true,
   imports: [CommonModule, FormsModule, ShippingInfoComponent],
   template: `
-    <div class="space-y-6">
+    <div class="space-y-8 p-8 bg-gray-50 rounded-2xl shadow-lg max-w-lg mx-auto transition-all hover:shadow-xl">
       <div class="flex items-center">
-        <span class="px-3 py-1 text-sm text-white bg-pink-500 rounded-full">Best Seller</span>
+        <span class="px-4 py-1 text-sm font-semibold text-white bg-pink-500 rounded-full uppercase tracking-wider">Best Seller</span>
       </div>
       
-      <h1 class="text-3xl font-bold">{{ product.name }}</h1>
-      <p class="text-gray-600">{{ product.description }}</p>
+      <h1 class="text-4xl font-extrabold text-gray-800">{{ product.name }}</h1>
+      <p class="text-gray-500 leading-relaxed">{{ product.description }}</p>
 
       <div class="flex items-center space-x-4">
         <span class="text-3xl font-bold text-indigo-600">\${{ product.price }}</span>
-        <span class="text-lg text-gray-500 line-through">\${{ product.originalPrice }}</span>
+        <span class="text-lg text-gray-400 line-through">\${{ product.originalPrice }}</span>
       </div>
 
-      <div class="flex items-center space-x-2">
-        <div class="star-rating flex">
-          <span *ngFor="let star of [1,2,3,4,5]">⭐</span>
+      <div class="flex items-center space-x-2 text-gray-500">
+        <div class="star-rating flex text-yellow-400">
+          <span *ngFor="let star of [1,2,3,4,5]" class="mr-0.5">⭐</span>
         </div>
-        <span class="text-gray-600">{{ product.reviews }} reviews</span>
-        <span class="text-gray-400">•</span>
-        <span class="text-gray-600">{{ product.sold }} sold</span>
+        <span>{{ product.reviews }} reviews</span>
+        <span class="text-gray-300">•</span>
+        <span>{{ product.sold }} sold</span>
       </div>
 
-      <div class="space-y-4">
+      <div class="space-y-6">
         <div>
-          <label class="block text-sm font-medium text-gray-700">Choose size</label>
-          <select
-            [(ngModel)]="selectedSize"
-            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-          >
-            <option *ngFor="let size of product.sizes" [value]="size">{{ size }} ML</option>
-          </select>
-        </div>
-
-        <div>
-          <label class="block text-sm font-medium text-gray-700">Quantity</label>
-          <div class="flex items-center space-x-3 mt-1">
+          <label class="block text-sm font-medium text-gray-600">Quantity</label>
+          <div class="flex items-center mt-3 space-x-3">
             <button
               (click)="decrementQuantity()"
-              class="rounded-md bg-gray-100 p-2 hover:bg-gray-200"
+              class="rounded-full bg-gray-200 w-10 h-10 text-lg font-bold text-gray-700 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-150"
             >
               -
             </button>
-            <span class="text-lg font-medium">{{ quantity }}</span>
+            <span class="text-xl font-semibold">{{ quantity }}</span>
             <button
               (click)="incrementQuantity()"
-              class="rounded-md bg-gray-100 p-2 hover:bg-gray-200"
+              class="rounded-full bg-gray-200 w-10 h-10 text-lg font-bold text-gray-700 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-150"
             >
               +
             </button>
@@ -62,15 +52,15 @@ import { ShippingInfoComponent } from "../shipping-info/shipping-info.component"
         </div>
       </div>
 
-      <div class="flex space-x-4">
+      <div class="flex space-x-4 mt-8">
         <button
           (click)="onAddToCart()"
-          class="flex-1 bg-white border border-indigo-600 text-indigo-600 px-6 py-3 rounded-md hover:bg-indigo-50"
+          class="flex-1 bg-indigo-50 border border-indigo-600 text-indigo-600 font-semibold px-6 py-3 rounded-lg hover:bg-indigo-100 hover:border-indigo-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
         >
           Add to bag
         </button>
         <button
-          class="flex-1 bg-indigo-600 text-white px-6 py-3 rounded-md hover:bg-indigo-700"
+          class="flex-1 bg-indigo-600 text-white font-semibold px-6 py-3 rounded-lg hover:bg-indigo-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
         >
           Checkout
         </button>
@@ -82,10 +72,9 @@ import { ShippingInfoComponent } from "../shipping-info/shipping-info.component"
 })
 export class ProductInfoComponent {
   @Input() product!: Product;
-  @Output() addToCart = new EventEmitter<{quantity: number; size: string}>();
+  @Output() addToCart = new EventEmitter<{ quantity: number }>();
 
   quantity = 1;
-  selectedSize = '50';
 
   incrementQuantity() {
     this.quantity++;
@@ -99,8 +88,7 @@ export class ProductInfoComponent {
 
   onAddToCart() {
     this.addToCart.emit({
-      quantity: this.quantity,
-      size: this.selectedSize
+      quantity: this.quantity
     });
   }
 }
