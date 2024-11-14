@@ -38,7 +38,7 @@ export class AppComponent {
     reviews: 368,
     sold: 823,
     rating: 4.5,
-    sizes: ['30', '50', '100']
+    
   };
 
   cart: CartItem[] = [];
@@ -48,12 +48,11 @@ export class AppComponent {
     return this.cart.reduce((count, item) => count + item.quantity, 0);
   }
 
-  addToCart(event: { quantity: number; size: string }) {
+  addToCart(event: { quantity: number;  }) {
     const item: CartItem = {
       id: 1,
       productName: this.product.name,
       quantity: event.quantity,
-      size: event.size,
       price: this.product.price
     };
     

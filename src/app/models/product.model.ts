@@ -8,5 +8,4 @@ export interface Product {
     reviews: number;
     sold: number;
     rating: number;
-    sizes: string[];
   }
