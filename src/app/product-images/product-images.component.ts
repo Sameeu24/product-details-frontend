@@ -5,35 +5,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-product-images',
   standalone: true,
   imports: [CommonModule],
-  template: `
-    <div class="space-y-4">
-      <!-- Main Image with Zoom Effect -->
-      <div
-        class="relative bg-white rounded-lg overflow-hidden"
-        (mousemove)="onMouseMove($event)"
-        (mouseleave)="onMouseLeave()"
-      >
-        <img
-          [src]="mainImage"
-          class="w-full h-full object-center object-cover"
-          [ngClass]="{ 'scale-150': isZoomed }"
-          [ngStyle]="zoomPosition"
-          alt="Product image"
-        />
-      </div>
-      
-      <!-- Thumbnails -->
-      <div class="grid grid-cols-4 gap-4">
-        <img
-          *ngFor="let img of thumbnails"
-          [src]="img"
-          class="rounded-lg cursor-pointer hover:opacity-75"
-          (click)="setMainImage(img)"
-          alt="Product thumbnail"
-        />
-      </div>
-    </div>
-  `,
+  templateUrl:'./product-images.component.html',
   styles: [
     `
       /* Zoomed image styling */

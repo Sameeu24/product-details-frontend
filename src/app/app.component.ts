@@ -4,7 +4,6 @@ import { Product } from './models/product.model';
 import { CartItem } from './models/cart-item.model';
 import { ProductInfoComponent } from './product-info/product-info.component';
 import { CartComponent } from './cart/cart.component';
-import { DetailsPageComponent } from './details-page/details-page.component';
 import { ShippingInfoComponent } from './shipping-info/shipping-info.component';
 import { ProductImagesComponent } from './product-images/product-images.component';
 
@@ -15,7 +14,6 @@ import { ProductImagesComponent } from './product-images/product-images.componen
     RouterOutlet,
     ProductInfoComponent,
     CartComponent,
-    DetailsPageComponent,
     ShippingInfoComponent,
     ProductImagesComponent
   ],
