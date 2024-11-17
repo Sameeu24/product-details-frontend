@@ -49,11 +49,49 @@
       Add to bag
     </button>
     <button
-      class="flex-1 bg-indigo-600 text-white font-semibold px-6 py-3 rounded-lg hover:bg-indigo-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-    >
-      Checkout
-    </button>
+    (click)="openOrderModal()"
+    class="flex-1 bg-indigo-600 text-white font-semibold px-6 py-3 rounded-lg hover:bg-indigo-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+  >
+    Place Order
+  </button>
   </div>
 
   <app-shipping-info />
+  <!-- Place Order Modal -->
+<div
+*ngIf="showOrderModal"
+class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+>
+<div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+  <h2 class="text-lg font-bold mb-4">Enter User ID</h2>
+  <form (ngSubmit)="onPlaceOrder()">
+    <label class="block mb-2 font-medium">User ID</label>
+    <input
+      type="number"
+      [(ngModel)]="userId"
+      name="userId"
+      class="w-full border px-3 py-2 rounded-lg mb-4"
+      placeholder="Enter your user ID"
+      required
+    />
+
+    <div class="flex justify-end space-x-4">
+      <button
+        type="button"
+        (click)="closeOrderModal()"
+        class="bg-gray-200 px-4 py-2 rounded-lg hover:bg-gray-300"
+      >
+        Cancel
+      </button>
+      <button
+        type="submit"
+        class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700"
+      >
+        Confirm
+      </button>
+    </div>
+  </form>
+</div>
+</div>
+
 </div>

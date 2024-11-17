@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Product } from '../models/product.model';
 import { ShippingInfoComponent } from "../shipping-info/shipping-info.component";
+import { NgModule } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-info',
@@ -15,6 +18,10 @@ export class ProductInfoComponent {
   @Output() addToCart = new EventEmitter<{ quantity: number }>();
 
   quantity = 1;
+  showOrderModal = false; // Controls modal visibility
+  userId!: number; // Holds the entered user ID
+
+  constructor(private http: HttpClient, private router: Router) {}
 
   incrementQuantity() {
     this.quantity++;
@@ -31,4 +38,43 @@ export class ProductInfoComponent {
       quantity: this.quantity
     });
   }
+  onPlaceOrder() {
+    if (this.userId) {
+      const order = {
+        userId: this.userId,
+        status: 'PROCESSING', // Default order status
+        totalAmount: this.product.price * this.quantity,
+        items: [
+          {
+            productId: 1, // Replace with real product ID if available
+            productName: this.product.name,
+            quantity: this.quantity,
+            price: this.product.price,
+          },
+        ],
+      };
+
+      // Send POST request
+      this.http.post('http://localhost:9000/api/v1/orders', order).subscribe({
+        next: (response) => {
+          console.log('Order placed successfully:', response);
+          this.closeOrderModal();
+          this.router.navigate(['/order-confirmation'], {
+            state: { orderDetails: response },
+          });
+        },
+        error: (error) => console.error('Error placing order:', error),
+      });
+    }
+  }
+
+  openOrderModal() {
+    this.showOrderModal = true;
+  }
+
+  closeOrderModal() {
+    this.showOrderModal = false;
+  }
+
+  
 }
