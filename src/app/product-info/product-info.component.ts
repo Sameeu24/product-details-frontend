@@ -6,6 +6,7 @@ import { ShippingInfoComponent } from "../shipping-info/shipping-info.component"
 import { NgModule } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { OrderServiceService } from '../services/order-service.service';
 
 @Component({
   selector: 'app-product-info',
@@ -21,7 +22,7 @@ export class ProductInfoComponent {
   showOrderModal = false; // Controls modal visibility
   userId!: number; // Holds the entered user ID
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router,private orderService:OrderServiceService) {}
 
   incrementQuantity() {
     this.quantity++;
@@ -55,7 +56,7 @@ export class ProductInfoComponent {
       };
 
       // Send POST request
-      this.http.post('http://localhost:9000/api/v1/orders', order).subscribe({
+      this.orderService.createOrder(order).subscribe({
         next: (response) => {
           console.log('Order placed successfully:', response);
           this.closeOrderModal();
