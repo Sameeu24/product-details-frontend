@@ -3,14 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 
-interface OrderItem {
+export interface OrderItem {
   productId: number;
   productName: string;
   quantity: number;
   price: number;
 }
 
-interface OrderDTO {
+export interface OrderDTO {
   userId: number;
   status: string; // Example: 'PROCESSING', 'SHIPPED'
   totalAmount: number;
