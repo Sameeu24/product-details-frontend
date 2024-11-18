@@ -17,7 +17,7 @@ import { CommonModule } from '@angular/common';
           <li *ngFor="let item of cartItems; let i = index">
             <a (click)="viewProductDetails(item.id)" class="product-name">
               {{ item.productName }}
-            </a> - {{ item.size }} ML, {{ item.quantity }} x {{ item.price }}
+            </a> - {{ item.size }} ML, {{ item.quantity }} x {{ item.price }}  ={{item.quantity*item.price}} <i class="fas fa-rupee-sign"></i>
             <div class="quantity-controls">
               <button (click)="decreaseQuantity(i)">-</button>
               <button (click)="increaseQuantity(i)">+</button>
