@@ -21,6 +21,8 @@ export class ProductInfoComponent {
   quantity = 1;
   showOrderModal = false; // Controls modal visibility
   userId!: number; // Holds the entered user ID
+  errorMessage: string | null = null;
+
 
   constructor(private http: HttpClient, private router: Router,private orderService:OrderServiceService) {}
 
@@ -64,8 +66,13 @@ export class ProductInfoComponent {
             state: { orderDetails: response },
           });
         },
-        error: (error) => console.error('Error placing order:', error),
+        error: (error) => {
+          console.error('Error placing order:', error);
+          this.errorMessage = error.error?.message || 'Failed to place the order. Please try again.';
+        },
       });
+    }else {
+      this.errorMessage = 'User ID is required to place the order.';
     }
   }
 
