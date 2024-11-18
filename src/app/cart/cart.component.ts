@@ -25,6 +25,8 @@ import { CommonModule } from '@angular/common';
             <button (click)="removeItem(i)" class="delete-button">Delete</button>
           </li>
         </ul>
+        <br>
+        <div class="total-price"><strong>Total price : </strong> {{getTotalPrice()}}</div>
       </div>
     </div>
   `,
@@ -93,5 +95,10 @@ export class CartComponent {
 
   viewProductDetails(productId: number) {
     this.productClicked.emit(productId);
+  }
+
+
+  getTotalPrice(): number {
+    return this.cartItems.reduce((total, item) => total + (item.quantity * item.price), 0);
   }
 }
